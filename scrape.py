@@ -4,8 +4,8 @@ from datetime import datetime
 import time
 from bs4 import BeautifulSoup
 
-RANK_PAGE = 'https://osu.ppy.sh/rankings/osu/performance?country=NZ&page='
-MAX_PAGE = 22  # inclusive
+RANK_PAGE = 'https://osu.ppy.sh/rankings/osu/performance?country=KR&page='
+MAX_PAGE = 20  # top 1k
 CSV_FILE = 'osu_data.csv'
 
 http = urllib3.PoolManager()
@@ -41,6 +41,14 @@ for i in range(1, MAX_PAGE + 1):
             profile.close()
             user_row.append(get_play_time(profile_text))
             writer.writerow(user_row)
+            # According to https://github.com/ppy/osu-api/wiki the limit for what
+            # is acceptable without contacting peppy (in the osu! api) is 60 requests
+            # a minute, I don't suggest going above that.
+            #
+            # This means that, not counting the opening of the site itself, a pause
+            # of one second should be made between each request. I'm still suggest the
+            # use at least 2, just because I dont wanna make peppy-san mad;;;
+            time.sleep(2)
 
         print('processed page', i, ' time-taken: ', time.time() - start)
         page.close()

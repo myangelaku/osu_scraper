@@ -61,6 +61,10 @@ for i in range(1, MAX_PAGE + 1):
 
             profile = http.request('GET', user_profile_link)
             profile_text = profile.data.decode('utf-8')
+            
+            if(get_location(profile_text) == "null"):
+                continue
+            
             profile.close()
             user_row.append(get_play_time(profile_text))
             user_row.append(get_location(profile_text))

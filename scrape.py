@@ -1,6 +1,7 @@
 import csv
 import urllib3
 from datetime import datetime
+from datetime import date
 import time
 from bs4 import BeautifulSoup
 
@@ -38,7 +39,7 @@ def get_location(text):
     return sub[:sub.find(',')]
 
 
-CSV_FILE = 'osu_data.csv'
+CSV_FILE = 'osu_data_' + COUNTRY + "_" + str(date.today()) + ".csv"
 
 for i in range(1, MAX_PAGE + 1):
     # Save per page in case something happens

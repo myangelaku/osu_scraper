@@ -1,4 +1,4 @@
-Simple python script to scrape the [osu! rankings](https://osu.ppy.sh/rankings/osu/performance) and each user's profile (currently only getting their playtime, will add more once I feel like it)
+Simple python script to scrape the [osu! rankings](https://osu.ppy.sh/rankings/osu/performance) and each user's profile (currently only getting their playtime and location)
 
 # Usage
 

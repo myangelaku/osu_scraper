@@ -33,6 +33,10 @@ def get_play_time(text):
     sub = text[text.find('play_time') + 11:]
     return sub[:sub.find(',')]
 
+def get_location(text):
+    sub = text[text.find('location') + 10:]
+    return sub[:sub.find(',')]
+
 
 CSV_FILE = 'osu_data.csv'
 
@@ -58,6 +62,7 @@ for i in range(1, MAX_PAGE + 1):
             profile_text = profile.data.decode('utf-8')
             profile.close()
             user_row.append(get_play_time(profile_text))
+            user_row.append(get_location(profile_text))
             writer.writerow(user_row)
             # Even though this scraper doesn't use the osu!API, according to
             # https://github.com/ppy/osu-api/wiki#terms-of-use, acceptable use

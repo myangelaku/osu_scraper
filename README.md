@@ -1,5 +1,7 @@
 Simple python script to scrape the [osu! rankings](https://osu.ppy.sh/rankings/osu/performance) and each user's profile (currently only getting their playtime and location)
 
+For now, the purpose of this script heavily lies in obtaining the specified location of players in order to potentially build a local community.
+
 # Usage
 
 * As this is a Python script, you'll obviously have to have [Python](https://www.python.org/downloads) at first. 

@@ -43,7 +43,7 @@ CSV_FILE = 'osu_data_' + COUNTRY + "_" + str(date.today()) + ".csv"
 
 for i in range(1, MAX_PAGE + 1):
     # Save per page in case something happens
-    with open(CSV_FILE, 'w', newline='') as csv_file:
+    with open(CSV_FILE, 'a', newline='') as csv_file:
         start = time.time()
         writer = csv.writer(csv_file)
         page = http.request('GET', PAGE_BASE + str(i))

@@ -30,14 +30,41 @@ http = urllib3.PoolManager()
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
 
-def get_play_time(text):
+def play_time(text):
     sub = text[text.find('play_time') + 11:]
     return sub[:sub.find(',')]
 
-def get_location(text):
+def maxpp(text):
+    sub = text[text.find('"count_miss":0},"pp') + 21:]
+    return sub[:sub.find(',')]
+
+#def playstyle(text):
+#    sub = text[text.find('playstyle') + 12:]
+#    return sub[:sub.find(']')]
+
+def join_date(text):
+    sub = text[text.find('join_date') + 11:]
+    return sub[:sub.find(',')]
+
+def location(text):
     sub = text[text.find('location') + 10:]
     return sub[:sub.find(',')]
 
+def interests(text):
+    sub = text[text.find('interests') + 11:]
+    return sub[:sub.find(',')]
+
+#def twitter(text):
+#    sub = text[text.find('twitter') + 9:]
+#    return sub[:sub.find(',')]
+
+def skype(text):
+    sub = text[text.find('skype') + 7:]
+    return sub[:sub.find(',')]
+
+def discord(text):
+    sub = text[text.find('","discord') + 12:]
+    return sub[:sub.find(',')]
 
 CSV_FILE = 'osu_data_' + COUNTRY + "_" + str(date.today()) + ".csv"
 
@@ -61,13 +88,20 @@ for i in range(1, MAX_PAGE + 1):
 
             profile = http.request('GET', user_profile_link)
             profile_text = profile.data.decode('utf-8')
-            
-#            if(get_location(profile_text) == "null"):
-#                continue
-            
+
+            #            if(get_location(profile_text) == "null"):
+            #                continue
+
             profile.close()
-            user_row.append(get_play_time(profile_text))
-            user_row.append(get_location(profile_text))
+            user_row.append(play_time(profile_text))
+            user_row.append(maxpp(profile_text))
+#            user_row.append(playstyle(profile_text))
+            user_row.append(join_date(profile_text))
+            user_row.append(location(profile_text))
+            user_row.append(interests(profile_text))
+#            user_row.append(twitter(profile_text))
+            user_row.append(skype(profile_text))
+            user_row.append(discord(profile_text))
             writer.writerow(user_row)
             # Even though this scraper doesn't use the osu!API, according to
             # https://github.com/ppy/osu-api/wiki#terms-of-use, acceptable use
@@ -79,5 +113,6 @@ for i in range(1, MAX_PAGE + 1):
             # use at least 2, just because I don't want to make peppy-san mad;;;
             time.sleep(2)
 
-        print('processed page', i, ' time-taken: ', str(int((time.time() - start)/60)) + ':' + str(int((time.time() - start) % 60)))
+        print('processed page', i, ' time-taken: ',
+              str(int((time.time() - start) / 60)) + ':' + str(int((time.time() - start) % 60)))
         page.close()

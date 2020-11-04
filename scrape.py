@@ -29,6 +29,9 @@ http = urllib3.PoolManager()
 
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
+def user_id(text):
+    sub = text[text.find('user_id') + 9:]
+    return sub[:sub.find(',')]
 
 def play_time(text):
     sub = text[text.find('play_time') + 11:]
@@ -93,6 +96,7 @@ for i in range(1, MAX_PAGE + 1):
             #                continue
 
             profile.close()
+            user_row.append(user_id(profile_text))
             user_row.append(play_time(profile_text))
             user_row.append(maxpp(profile_text))
 #            user_row.append(playstyle(profile_text))

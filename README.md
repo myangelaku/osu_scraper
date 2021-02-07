@@ -1,3 +1,6 @@
+This scraper has been [rewritten by Cyb3rTrash](https://github.com/Cyb3rTrash/better_osu_scraper).
+
+
 Simple python script to scrape the [osu! rankings](https://osu.ppy.sh/rankings/osu/performance) and several info about each profile!
 
 # Usage
